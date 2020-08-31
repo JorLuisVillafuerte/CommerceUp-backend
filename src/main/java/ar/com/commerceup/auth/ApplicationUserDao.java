@@ -1,10 +1,9 @@
 package ar.com.commerceup.auth;
 
 import java.util.Optional;
-import org.springframework.data.repository.CrudRepository;
 
-public interface ApplicationUserDao extends CrudRepository<ApplicationUser, Integer>{
+public interface ApplicationUserDao {
 
-    Optional<ApplicationUser> findByUserName(String username);
-    
+    Optional<ApplicationUser> selectApplicationUserByUsername(String username);
+
 }

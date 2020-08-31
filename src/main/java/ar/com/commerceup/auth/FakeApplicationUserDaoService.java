@@ -2,24 +2,21 @@ package ar.com.commerceup.auth;
 
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
-import static ar.com.commerceup.security.ApplicationUserRole.*;
-
-
-
 
 import java.util.List;
 import java.util.Optional;
 
+import static ar.com.commerceup.security.ApplicationUserRole.*;
+
 @Repository("fake")
-public class ApplicationUserServiceDao implements ApplicationUserDao {
+public class FakeApplicationUserDaoService implements ApplicationUserDao {
 
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public ApplicationUserServiceDao(PasswordEncoder passwordEncoder) {
+    public FakeApplicationUserDaoService(PasswordEncoder passwordEncoder) {
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -45,7 +42,7 @@ public class ApplicationUserServiceDao implements ApplicationUserDao {
                 new ApplicationUser(
                         "linda",
                         passwordEncoder.encode("password"),
-                        USER.getGrantedAuthorities(),
+                        ADMIN.getGrantedAuthorities(),
                         true,
                         true,
                         true,
@@ -64,4 +61,5 @@ public class ApplicationUserServiceDao implements ApplicationUserDao {
 
         return applicationUsers;
     }
+
 }
