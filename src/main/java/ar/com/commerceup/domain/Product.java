@@ -9,25 +9,22 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 
 @Entity
 @Table(name="product")
-@NamedQueries({
-    @NamedQuery(name = "Product.findAll", query = "SELECT p FROM product p")})
 public class Product implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -35,18 +32,20 @@ public class Product implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     private Integer internalid;
+    @Column(unique = true)
     private String productCode;
     private String articleCode;
     private String name;
     private String description;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     private BigDecimal unitPrice;
+    @Column(updatable=false)
     @CreationTimestamp
     private Date dateCreated;
     @UpdateTimestamp
     private Date dateModified;
     @JoinColumn(name = "categoryId", referencedColumnName = "internalid")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Category categoryId;
     @JoinColumn(name = "statusId", referencedColumnName = "internalid")
     @ManyToOne

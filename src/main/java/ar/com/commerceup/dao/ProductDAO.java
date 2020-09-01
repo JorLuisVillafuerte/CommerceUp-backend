@@ -11,7 +11,7 @@ import ar.com.commerceup.domain.Product;
 import java.util.Optional;
 
 public interface ProductDAO extends CrudRepository<Product,Integer> {
-    public abstract Optional<Product> findyByProductCode(String productcode);
+    public abstract Optional<Product> findByProductCode(String productcode);
     public abstract Iterable<Product> findAllByCategoryId(Category category);
 
 }

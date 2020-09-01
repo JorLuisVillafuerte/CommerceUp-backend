@@ -9,26 +9,23 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 
 @Entity
 @Table(name="category")
-@NamedQueries({
-   @NamedQuery(name = "Category.findAll", query = "SELECT c FROM category c")})
 public class Category implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -36,12 +33,14 @@ public class Category implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     private Integer internalid;
+    @Column(unique = true)
     private String categoryCode;
     private String name;
     private String description;
     private String targetType;
     private String seasonType;
     private String img;
+    @Column(updatable=false)
     @CreationTimestamp
     private Date dateCreated;
     @UpdateTimestamp
@@ -49,9 +48,11 @@ public class Category implements Serializable {
     @JoinColumn(name = "statusId", referencedColumnName = "internalid")
     @ManyToOne
     private Status statusId;
-    @OneToMany(mappedBy = "categoryId")
+    
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "categoryId", cascade = CascadeType.ALL)
     private List<Product> productList;
 
+    
     public Category() {
     }
 
@@ -179,6 +180,12 @@ public class Category implements Serializable {
         this.statusId = statusId;
         this.productList = productList;
     }
+
+    @Override
+    public String toString() {
+        return "Category{" + "categoryCode=" + categoryCode + ", name=" + name + ", description=" + description + ", targetType=" + targetType + ", seasonType=" + seasonType + ", img=" + img + ", dateCreated=" + dateCreated + ", dateModified=" + dateModified + ", statusId=" + statusId + ", productList=" + productList + '}';
+    }
+    
     
     
 }

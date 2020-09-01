@@ -6,23 +6,19 @@
 package ar.com.commerceup.domain;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 /**
  *
  * @author villa
  */
 @Entity
-@NamedQueries({
-    @NamedQuery(name = "Status.findAll", query = "SELECT s FROM Status s")})
+@Table(name="status")
 public class Status implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -31,10 +27,6 @@ public class Status implements Serializable {
     @Basic(optional = false)
     private Integer internalid;
     private String statusType;
-    @OneToMany(mappedBy = "statusId")
-    private List<Category> categoryList;
-    @OneToMany(mappedBy = "statusId")
-    private List<Product> productList;
 
     public Status() {
     }
@@ -59,21 +51,6 @@ public class Status implements Serializable {
         this.statusType = statusType;
     }
 
-    public List<Category> getCategoryList() {
-        return categoryList;
-    }
-
-    public void setCategoryList(List<Category> categoryList) {
-        this.categoryList = categoryList;
-    }
-
-    public List<Product> getProductList() {
-        return productList;
-    }
-
-    public void setProductList(List<Product> productList) {
-        this.productList = productList;
-    }
 
     @Override
     public int hashCode() {
@@ -95,9 +72,11 @@ public class Status implements Serializable {
         return true;
     }
 
-    @Override
-    public String toString() {
-        return "ar.com.commerceup.domain.Status[ internalid=" + internalid + " ]";
+    public Status(String statusType) {
+        this.statusType = statusType;
     }
+
+    
+   
     
 }
