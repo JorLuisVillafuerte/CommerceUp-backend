@@ -5,6 +5,7 @@
  */
 package ar.com.commerceup.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -44,11 +45,14 @@ public class Product implements Serializable {
     private Date dateCreated;
     @UpdateTimestamp
     private Date dateModified;
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "categoryId", referencedColumnName = "internalid")
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JsonIgnore
     private Category categoryId;
-    @JoinColumn(name = "statusId", referencedColumnName = "internalid")
+    
     @ManyToOne
+    @JoinColumn(name = "statusId", referencedColumnName = "internalid")
+    @JsonIgnore
     private Status statusId;
 
     public Product() {

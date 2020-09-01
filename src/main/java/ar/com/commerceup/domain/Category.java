@@ -49,12 +49,13 @@ public class Category implements Serializable {
     @ManyToOne
     private Status statusId;
     
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "categoryId", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "categoryId", cascade = CascadeType.ALL)
     private List<Product> productList;
 
     
     public Category() {
     }
+    
 
     public Category(Integer internalid) {
         this.internalid = internalid;
@@ -146,6 +147,9 @@ public class Category implements Serializable {
 
     public void setProductList(List<Product> productList) {
         this.productList = productList;
+        for (Product prd : productList) {
+            prd.setCategoryId(this);
+        }
     }
 
     @Override
