@@ -18,12 +18,14 @@ import org.springframework.web.bind.annotation.RestController;
 import ar.com.commerceup.domain.Category;
 import java.util.Optional;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.server.ResponseStatusException;
 
 
 @RestController
+@CrossOrigin
 @RequestMapping("/categorias")
 @Slf4j
 public class CategoryRestController {

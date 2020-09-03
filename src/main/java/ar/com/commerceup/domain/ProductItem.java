@@ -1,5 +1,6 @@
 package ar.com.commerceup.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -43,9 +44,14 @@ public class ProductItem implements Serializable {
     @UpdateTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateModified;
-    @JoinColumn(name = "productId", referencedColumnName = "internalid")
     @ManyToOne
+    @JoinColumn(name = "productId")
+    //@JoinColumn(name = "productId", referencedColumnName = "internalid")
+    //@ManyToOne
+    //@JsonBackReference
     private Product productId;
+    
+    
     @JoinColumn(name = "statusId", referencedColumnName = "internalid")
     @ManyToOne
     private Status statusId;

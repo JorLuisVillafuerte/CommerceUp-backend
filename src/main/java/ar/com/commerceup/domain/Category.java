@@ -5,6 +5,9 @@
  */
 package ar.com.commerceup.domain;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -49,7 +52,10 @@ public class Category implements Serializable {
     @ManyToOne
     private Status statusId;
     
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "categoryId", cascade = CascadeType.ALL)
+    //@OneToMany(mappedBy = "categoryId", orphanRemoval = true, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    //@JsonManagedReference
+    //@JsonManagedReference
+    @OneToMany
     private List<Product> productList;
 
     

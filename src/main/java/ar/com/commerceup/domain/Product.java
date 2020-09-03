@@ -5,10 +5,13 @@
  */
 package ar.com.commerceup.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -19,6 +22,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -45,19 +49,37 @@ public class Product implements Serializable {
     private Date dateCreated;
     @UpdateTimestamp
     private Date dateModified;
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "categoryId", referencedColumnName = "internalid")
-    @JsonIgnore
-    private Category categoryId;
-    
     @ManyToOne
+    @JoinColumn(name = "categoryId")
+    //@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    //@JoinColumn(name = "categoryId")
+    //@JsonBackReference
+    //@ManyToOne
+    private Category categoryId; 
     @JoinColumn(name = "statusId", referencedColumnName = "internalid")
-    @JsonIgnore
+    @ManyToOne
     private Status statusId;
-
+    
+    
+    //@OneToMany(mappedBy="productId")
+    //@JsonManagedReference
+    @OneToMany
+    private List<ProductItem> productItemList;
+   
+    
+    
     public Product() {
     }
 
+    public List<ProductItem> getProductItemList() {
+        return productItemList;
+    }
+
+    public void setProductItemList(List<ProductItem> productItemList) {
+        this.productItemList = productItemList;
+    }
+
+    
     public Product(Integer internalid) {
         this.internalid = internalid;
     }
@@ -125,7 +147,7 @@ public class Product implements Serializable {
     public void setDateModified(Date dateModified) {
         this.dateModified = dateModified;
     }
-
+    
     public Category getCategoryId() {
         return categoryId;
     }
@@ -142,6 +164,7 @@ public class Product implements Serializable {
         this.statusId = statusId;
     }
 
+    
     @Override
     public int hashCode() {
         int hash = 0;
@@ -162,18 +185,8 @@ public class Product implements Serializable {
         return true;
     }
 
-    public Product(String productCode, String articleCode, String name, String description, BigDecimal unitPrice, Date dateCreated, Date dateModified, Category categoryId, Status statusId) {
-        this.productCode = productCode;
-        this.articleCode = articleCode;
-        this.name = name;
-        this.description = description;
-        this.unitPrice = unitPrice;
-        this.dateCreated = dateCreated;
-        this.dateModified = dateModified;
-        this.categoryId = categoryId;
-        this.statusId = statusId;
-    }
-
     
+
+   
     
 }

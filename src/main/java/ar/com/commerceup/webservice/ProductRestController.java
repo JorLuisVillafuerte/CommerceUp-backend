@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/productos")
 @Slf4j
 public class ProductRestController {
@@ -35,10 +37,6 @@ public class ProductRestController {
         return productservice.findAllByCategoryId(category);
     }
     
-    @PostMapping("/")
-    public Product crearProducto(@RequestBody Product producto){
-        return productservice.save(producto);
-    }
     
     @GetMapping("/codigo/{codigo}")
     public ResponseEntity obtenerPorCodigo(@PathVariable("codigo") String codigo){
@@ -50,9 +48,13 @@ public class ProductRestController {
         }
         return ResponseEntity.of(prd);                
     }
-    @GetMapping("/id/{codigo}")
-    public ResponseEntity obtenerPorCodigo(@PathVariable("id") Integer id){
+    
+    
+    @GetMapping("/id/{id}")
+    public ResponseEntity obtenerPorId(@PathVariable("id") Integer id){
         Optional<Product> prd = productservice.findById(id);
+        log.info("Objecto producto: "+prd);
+        
         if(!prd.isPresent()){
             throw new ResponseStatusException(
              HttpStatus.NOT_FOUND, "No se encontro un producto con el ID proporcionado"
@@ -60,6 +62,13 @@ public class ProductRestController {
         }
         return ResponseEntity.of(prd);                
     }
+    
+    @PostMapping("/")
+    public Product crearProducto(@RequestBody Product producto){
+        
+        return productservice.save(producto);
+    }
+    
     @DeleteMapping("/id/{id}")
     public ResponseEntity borrarPorId(@PathVariable("id") Integer id){
         Optional<Product> prd = productservice.findById(id);
@@ -72,4 +81,5 @@ public class ProductRestController {
         return ResponseEntity.ok("Se borro correctamente");                
                    
     }
+    
 }
