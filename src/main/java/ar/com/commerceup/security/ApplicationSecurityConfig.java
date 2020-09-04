@@ -38,15 +38,15 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-                //.and()
-                //.addFilter(new JwtUsernameAndPasswordAuthenticationFilter(authenticationManager(), jwtConfig))
-                //.addFilterAfter(new JwtTokenVerifier(jwtConfig),JwtUsernameAndPasswordAuthenticationFilter.class)
-                //.authorizeRequests()
-                //.antMatchers("/", "index", "/css/*", "/js/*","/categorias").permitAll()
-                //.antMatchers("/api/*").hasRole("ADMIN")
-               // .anyRequest()
-                //.authenticated();
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);/*
+                .and()
+                .addFilter(new JwtUsernameAndPasswordAuthenticationFilter(authenticationManager(), jwtConfig))
+                .addFilterAfter(new JwtTokenVerifier(jwtConfig),JwtUsernameAndPasswordAuthenticationFilter.class)
+                .authorizeRequests()
+                .antMatchers("/", "index","/usuarios/**","/login").permitAll()
+                .antMatchers("/categorias/*").hasRole("ADMIN")
+                .anyRequest()
+                .authenticated();*/
     }
 
     @Override

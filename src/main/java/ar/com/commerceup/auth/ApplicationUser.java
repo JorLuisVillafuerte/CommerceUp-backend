@@ -1,10 +1,14 @@
 package ar.com.commerceup.auth;
 
+import ar.com.commerceup.domain.User;
+import java.util.Arrays;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.Set;
+import java.util.stream.Collectors;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 public class ApplicationUser implements UserDetails {
 
@@ -32,6 +36,18 @@ public class ApplicationUser implements UserDetails {
         this.isEnabled = isEnabled;
     }
 
+    public ApplicationUser(User user){
+        this.username = user.getUserName();
+        this.password = user.getPassword();
+        this.grantedAuthorities = Arrays.stream(user.getRoles().split(","))
+                .map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toSet());
+        this.isAccountNonExpired = true;
+        this.isAccountNonLocked = true;
+        this.isCredentialsNonExpired = true;
+        this.isEnabled = true;
+    }
+    
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return grantedAuthorities;
