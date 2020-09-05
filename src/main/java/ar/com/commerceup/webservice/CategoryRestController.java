@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ar.com.commerceup.domain.Category;
 import java.util.Optional;
+import javax.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -37,7 +38,7 @@ public class CategoryRestController {
         return categoryservice.findAll();
     }
     @PostMapping("/")
-    public Category crearCategoria(@RequestBody Category category){
+    public Category crearCategoria(@Valid @RequestBody Category category){
         return categoryservice.save(category);
     }
     @GetMapping("/codigo/{codigo}")

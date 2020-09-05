@@ -1,21 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ar.com.commerceup.domain;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -23,6 +13,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -37,32 +30,41 @@ public class Category implements Serializable {
     @Basic(optional = false)
     private Integer internalid;
     @Column(unique = true)
+    @NotBlank(message="El codigo de categoria no puede ser nulo/vacio.")
+    @Size(max = 10)
     private String categoryCode;
+    @NotBlank(message="Debe proporcionar un nombre para la categoria.")
+    @Size(max = 45)
     private String name;
+    @Size(max = 255)
     private String description;
+    @NotBlank(message="Debe proporcionar un target para la categoria.")
+    @Size(max = 45)
     private String targetType;
+    @NotBlank(message="Debe proporcionar una temporada para la categoria.")
+    @Size(max = 45)
     private String seasonType;
+    @Size(max = 255)
     private String img;
     @Column(updatable=false)
     @CreationTimestamp
+    @Temporal(javax.persistence.TemporalType.DATE)
     private Date dateCreated;
     @UpdateTimestamp
+    @Temporal(javax.persistence.TemporalType.DATE)
     private Date dateModified;
     @JoinColumn(name = "statusId", referencedColumnName = "internalid")
     @ManyToOne
     private Status statusId;
-    
     //@OneToMany(mappedBy = "categoryId", orphanRemoval = true, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     //@JsonManagedReference
     //@JsonManagedReference
     @OneToMany
     private List<Product> productList;
 
-    
     public Category() {
     }
     
-
     public Category(Integer internalid) {
         this.internalid = internalid;
     }
