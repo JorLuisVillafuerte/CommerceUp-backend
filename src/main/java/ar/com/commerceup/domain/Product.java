@@ -13,10 +13,8 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -24,6 +22,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -38,11 +39,18 @@ public class Product implements Serializable {
     @Basic(optional = false)
     private Integer internalid;
     @Column(unique = true)
+    @NotBlank(message="El codigo de producto no puede ser nulo/vacio.")
+    @Size(max = 10, message="El codigo de producto debe ser menor a 10 caracteres.")
     private String productCode;
+    @Size(max = 10, message="El codigo de producto debe ser menor a 10 caracteres.")
     private String articleCode;
+    @NotBlank(message="Debe proporcionar un nombre para el producto.")
+    @Size(max = 45, message="Se excedio del maximo de caracteres permitidos.")
     private String name;
+    @Size(max = 255, message="Se excedio del maximo de caracteres permitidos.")
     private String description;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @NotEmpty(message="Se debe proporcionar un precio valido para el producto.")
+    @Column(precision=10, scale=2)
     private BigDecimal unitPrice;
     @Column(updatable=false)
     @CreationTimestamp

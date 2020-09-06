@@ -31,18 +31,18 @@ public class Category implements Serializable {
     private Integer internalid;
     @Column(unique = true)
     @NotBlank(message="El codigo de categoria no puede ser nulo/vacio.")
-    @Size(max = 10)
+    @Size(max = 10, message="El codigo de categoria debe ser menor a 10 caracteres.")
     private String categoryCode;
     @NotBlank(message="Debe proporcionar un nombre para la categoria.")
-    @Size(max = 45)
+    @Size(max = 45, message="Se excedio del maximo de caracteres permitidos.")
     private String name;
-    @Size(max = 255)
+    @Size(max = 255, message="Se excedio del maximo de caracteres permitidos.")
     private String description;
     @NotBlank(message="Debe proporcionar un target para la categoria.")
-    @Size(max = 45)
+    @Size(max = 45, message="Se excedio del maximo de caracteres permitidos.")
     private String targetType;
     @NotBlank(message="Debe proporcionar una temporada para la categoria.")
-    @Size(max = 45)
+    @Size(max = 45, message="Se excedio del maximo de caracteres permitidos.")
     private String seasonType;
     @Size(max = 255)
     private String img;
