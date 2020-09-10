@@ -31,7 +31,7 @@ public class ApiExceptionHandler {
     @ResponseStatus(code = HttpStatus.BAD_REQUEST)
     @ResponseBody
     public ErrorDetails handleValidationError1(DataIntegrityViolationException ex) {
-        return new ErrorDetails("VALIDATION_FAILED_UNIQUECONSTRAINT", "El codigo proporcionado ya existe, proporcione uno nuevo.");
+        return new ErrorDetails("VALIDATION_FAILED_UNIQUECONSTRAINT", "El codigo proporcionado ya existe, coloque uno nuevo.");
     }
    
 }

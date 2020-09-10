@@ -34,6 +34,7 @@ public class CategoryRestController {
     }
     @PostMapping("/")
     public Category crearCategoria(@Valid @RequestBody Category category){
+        log.info("categproa add: "+category.toString());
         return categoryservice.save(category);
     }
     @GetMapping("/codigo/{codigo}")
