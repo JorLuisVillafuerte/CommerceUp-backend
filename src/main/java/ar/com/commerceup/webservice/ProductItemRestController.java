@@ -51,6 +51,10 @@ class ProductItemRestController {
     public ProductItem crearItem(@RequestBody ProductItem productitem1){
         return productitem.save(productitem1);
     }
+    @PostMapping("/lote")
+    public List<ProductItem> crearItemLote(@RequestBody List<ProductItem> productitem1){
+        return productitem.saveAll(productitem1);
+    }
     @DeleteMapping("/id/{id}")
     public ResponseEntity borrarPorId(@PathVariable("id") Integer id){
         if(!productitem.existsById(id)){

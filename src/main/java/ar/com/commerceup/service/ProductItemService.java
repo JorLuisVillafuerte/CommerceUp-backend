@@ -14,6 +14,7 @@ public interface ProductItemService {
     
     public List<ProductItem>findAllByProductId(Product product);
     public ProductItem save(ProductItem productitem);
+    public List<ProductItem> saveAll(List<ProductItem> productitem);
     public List<ProductItem> findAll();
     public Optional<ProductItem> findByItemCode(String itemcode);
     public Optional<ProductItem> findById(Integer id);

@@ -58,5 +58,10 @@ public class ProductItemServiceImp implements ProductItemService{
     public void delete(ProductItem productitem) {
         productitemdao.delete(productitem);
     }
+
+    @Override
+    public List<ProductItem> saveAll(List<ProductItem> productitem) {
+        return (List<ProductItem>) productitemdao.saveAll(productitem);
+    }
     
 }
