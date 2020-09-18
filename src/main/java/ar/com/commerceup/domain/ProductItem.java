@@ -127,6 +127,7 @@ public class ProductItem implements Serializable {
         this.dateModified = dateModified;
     }
 
+    @JsonBackReference
     public Product getProductId() {
         return productId;
     }

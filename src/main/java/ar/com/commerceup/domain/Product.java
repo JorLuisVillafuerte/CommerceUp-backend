@@ -49,7 +49,6 @@ public class Product implements Serializable {
     private String name;
     @Size(max = 255, message="Se excedio del maximo de caracteres permitidos.")
     private String description;
-    @NotEmpty(message="Se debe proporcionar un precio valido para el producto.")
     @Column(precision=10, scale=2)
     private BigDecimal unitPrice;
     @Column(updatable=false)
@@ -68,10 +67,10 @@ public class Product implements Serializable {
     @ManyToOne
     private Status statusId;
     
-    
-    //@OneToMany(mappedBy="productId")
+    @OneToMany(mappedBy="productId")
     //@JsonManagedReference
-    @OneToMany
+    //@OneToMany
+    //@JoinColumn(name = "productItemList")
     private List<ProductItem> productItemList;
    
     
@@ -79,6 +78,7 @@ public class Product implements Serializable {
     public Product() {
     }
 
+    @JsonManagedReference
     public List<ProductItem> getProductItemList() {
         return productItemList;
     }
