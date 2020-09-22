@@ -5,6 +5,8 @@
     <class>ar.com.commerceup.domain.Product</class>
     <class>ar.com.commerceup.domain.Category</class>
     <class>ar.com.commerceup.domain.Status</class>
+    <class>ar.com.commerceup.domain.OrderDetail</class>
+    <class>ar.com.commerceup.domain.Order</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://jlv-trazabilidad.c7d3s209lup0.us-east-1.rds.amazonaws.com:3306/commerceup?zeroDateTimeBehavior=CONVERT_TO_NULL"/>
       <property name="javax.persistence.jdbc.user" value="awsadmin"/>
